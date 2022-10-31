@@ -32,8 +32,30 @@ describe("juego de tateti", async ()=>{
         it ("Le toca mover al primer jugador", async()=>{
             
             res=  await chai.request(server).put("/empezar").send(juego);
-            res.should.have.status(200);
-            res.body.should.have.property('turno').equal('Juan');
+            res.should.have.status(200);            
+            res.body.should.have.property('turno').eql('Juan');
+            
+            
+        })
+
+        it ("Todos los casilleros estan vacios", (done)=>{
+
+            chai.request(server)
+            .put("/empezar")
+            .send(juego)
+            .end((err,res)=>{
+                res.should.have.status(200);            
+                res.should.to.be.json;       
+                res.body.should.have.property('turno').eql('Juan');
+                res.body.should.have.property('estado').eql([
+                    [' ',' ',' '],
+                    [' ',' ',' '],
+                    [' ',' ',' '],
+                ]);
+                done()
+            })
+            
+            
             
             
         })

@@ -8,7 +8,15 @@ router.get('/', function(req, res, next) {
 
 /* Put empezar. */
 router.put('/empezar', function(request, response) {
-  response.send({turno : 'Juan'});
+  response.send({
+    turno : 'Juan',
+    estado: [
+            [' ',' ',' '],
+            [' ',' ',' '],
+            [' ',' ',' '],
+    ]
+
+  });
 });
 
 
