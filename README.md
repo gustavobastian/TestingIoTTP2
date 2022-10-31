@@ -24,7 +24,7 @@ En este trabajo se utiliza express, por lo que se debe instalar:
         >npm install express cookie-parser debug morgan
         >npm install -g express-generator
 
-En este trabajo se utiliza express, por lo que se debe instalar:
+
 
 Pruebas a realizar:
 
