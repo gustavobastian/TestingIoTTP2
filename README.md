@@ -1,7 +1,9 @@
 # Repositorio Trabajo Práctico 2 de la materia Testing de Sistemas IoT
 
 
-En este trabajo práctico se implementa verificación y tésting de código. Es parte de la materia Testing de IoT dictada por Esteban Volentini (https://github.com/evolentini) y Carlos Pantelides (https://github.com/cpantel) y
+En este trabajo práctico se implementa verificación y tésting de código. Es parte de la materia Testing de IoT dictada por Esteban Volentini (https://github.com/evolentini) y Carlos Pantelides (https://github.com/cpantel).
+
+El trabajo consisten en implementar el juego de tateti en una app de express.
 
 
 Herramientas que se utilizan:

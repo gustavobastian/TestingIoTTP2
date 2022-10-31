@@ -7,16 +7,15 @@ chai.use(chaihttp)
 
 
 /*
-
-1-En un juego nuevo el tablero esta vacio y mueve el primer jugador \
-2-completar una casilla, el tablero tiene una casilla ocupada y le toca al segundo jugador \
-3-completar una casilla, el tablero tiene 2 casillas ocupada y le toca al priemr jugador\
-4-no debe aceptar movimientos de jugadores que no le corresponden \
-5-si un jugador quiere marcar una posicion tiene un error y sigue su tiempo de mover \
-6-si 3 filas tienen la marca de un mismo jugador gano \
-7-si 3 columnas tienen la marca de un mismo jugador gano\
-8-si una diagonal tiene la marca de un mismo jugador gano\
-9-si no hay mas espacios en el tablero es empate
+*En un juego nuevo el tablero esta vacio y mueve el primer jugador 
+*completar una casilla, el tablero tiene una casilla ocupada y le toca mover al segundo jugador 
+*completar una casilla, el tablero tiene dos casillas ocupada y le toca al primer jugador
+*no debe aceptar movimientos de jugadores que no le corresponden 
+*si 3 filas tienen la marca de un mismo jugador gano 
+*si 3 columnas tienen la marca de un mismo jugador gano
+*si una diagonal tiene la marca de un mismo jugador gano
+*si no hay mas espacios en el tablero es empate
+*si un jugador quiere marcar una posicion ocupada tiene un error y sigue su tiempo de mover 
 */
 
 
@@ -24,8 +23,24 @@ chai.use(chaihttp)
 
 describe("juego de tateti", async ()=>{
     
-    it("empieza juego nuevo",async()=>{
-        chai.assert.fail("empezamos")
+    
+    describe("empieza juego nuevo", async()=>{
+        let juego = {
+            jugadores: ['Juan','Pedro']
+        }
+        
+        it ("Le toca mover al primer jugador", async()=>{
+            
+            res=  await chai.request(server).put("/empezar").send(juego);
+            res.should.have.status(200);
+            res.body.should.have.property('turno').equal('Juan');
+            
+            
+        })
 
     })
+
+    
+
+
 })
