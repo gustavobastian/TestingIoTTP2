@@ -19,15 +19,20 @@ chai.use(chaihttp)
 */
 
 
-
+movimientos=[
+            ["Juan",0,0],
+            ["Pedro",1,0],
+            ["Juan",1,1],
+            ["Pedro",2,0],
+        ]
 
 describe("juego de tateti", async ()=>{
+    let juego = {
+        jugadores: ['Juan','Pedro']
+    }
     
     
     describe("empieza juego nuevo", async()=>{
-        let juego = {
-            jugadores: ['Juan','Pedro']
-        }
         
         it ("Le toca mover al primer jugador", async()=>{
             
@@ -54,15 +59,27 @@ describe("juego de tateti", async ()=>{
                 ]);
                 done()
             })
-            
-            
-            
-            
         })
-
     })
 
-    
-
-
+    describe(" primer movimiento", ()=>{
+                
+        it ("El casillero queda ocupado y le toca al otro jugador", (done)=>{
+            chai.request(server).put("/empezar").send(juego).end();            
+            chai.request(server)
+            .put("/movimiento")
+            .send(movimientos[0])
+            .end((err,res)=>{
+                res.should.have.status(200);            
+                res.should.to.be.json;       
+                res.body.should.have.property('turno').eql('Pedro');
+                res.body.should.have.property('estado').eql([
+                    ['0',' ',' '],
+                    [' ',' ',' '],
+                    [' ',' ',' '],
+                ]);
+                done()
+            })
+        })
+    })
 })
