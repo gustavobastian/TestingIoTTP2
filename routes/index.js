@@ -19,5 +19,17 @@ router.put('/empezar', function(request, response) {
   });
 });
 
+/* Put empezar. */
+router.put('/movimiento', function(request, response) {
+  response.send({
+    turno : 'Pedro',
+    estado: [
+            ['0',' ',' '],
+            [' ',' ',' '],
+            [' ',' ',' '],
+    ]
+
+  });
+});
 
 module.exports = router;
