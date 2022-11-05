@@ -71,6 +71,12 @@ router.put('/movimiento', function(request, response) {
     }  
   }
 
+  if ((estadoPizarra[0][0]==estadoPizarra[1][1]) && (estadoPizarra[2][2]==estadoPizarra[1][1])&&(estadoPizarra[0][0]!=" ")){
+    ganador=true;
+  }  
+  if ((estadoPizarra[0][2]==estadoPizarra[1][1]) && (estadoPizarra[2][0]==estadoPizarra[1][1])&&(estadoPizarra[1][1]!=" ")){
+    ganador=true;
+  }  
   
   if (ganador==true)
         {
