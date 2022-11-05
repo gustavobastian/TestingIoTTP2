@@ -60,7 +60,7 @@ router.put('/movimiento', function(request, response) {
   }
   let ganador=false;
   respuesta={}
-  console.log(estadoPizarra)
+  
   for (i=0;i<3;i++){
     if ((estadoPizarra[0][i]==estadoPizarra[1][i]) && (estadoPizarra[1][i]==estadoPizarra[2][i])&&(estadoPizarra[0][i]!=" ")){
       ganador=true;
