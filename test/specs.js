@@ -179,11 +179,96 @@ describe("juego de tateti", async ()=>{
                 ]);
                 done();
             })
-
-
-
         })
 
-    })
+        it("el juego termina cuando hay 3 valores iguales bis",(done)=>{
+            let movimientos_2 = [
+                { jugador: 'Juan', columna: 2, fila: 0 },
+                { jugador: 'Pedro', columna: 1, fila: 0 },
+                { jugador: 'Juan', columna: 2, fila: 1 },
+                { jugador: 'Pedro', columna: 1, fila: 1 },
+                { jugador: 'Juan', columna: 2, fila: 2 },
+                { jugador: 'Pedro', columna: 0, fila: 0 },
+            ];
+            chai.request(server).put("/empezar").send(juego).end();
+            chai.request(server).put("/movimiento").send(movimientos_2[0]).end();
+            chai.request(server).put("/movimiento").send(movimientos_2[1]).end();
+            chai.request(server).put("/movimiento").send(movimientos_2[2]).end();
+            chai.request(server).put("/movimiento").send(movimientos_2[3]).end();
+            chai.request(server).put("/movimiento").send(movimientos_2[4])
+            .end((err,res)=>{
+                res.should.have.status(200);            
+                res.should.to.be.json;                       
+                res.should.to.be.a('object');              
+                res.body.should.have.property('gana').eql('Juan');
+                res.body.should.have.property('estado').eql([
+                    [' ','0','x'],
+                    [' ','0','x'],
+                    [' ',' ','x'],
+                ]);
+                done();
+            })
+        })    
+
+        it("el juego termina cuando hay 3 valores iguales bis_h",(done)=>{
+            let movimientos_3 = [
+                { jugador: 'Juan', columna: 0, fila: 0 },
+                { jugador: 'Pedro', columna: 1, fila: 2 },
+                { jugador: 'Juan', columna: 1, fila: 0 },
+                { jugador: 'Pedro', columna: 1, fila: 1 },
+                { jugador: 'Juan', columna: 2, fila: 0 },
+                { jugador: 'Pedro', columna: 0, fila: 1 },
+            ];
+            chai.request(server).put("/empezar").send(juego).end();
+            chai.request(server).put("/movimiento").send(movimientos_3[0]).end();
+            chai.request(server).put("/movimiento").send(movimientos_3[1]).end();
+            chai.request(server).put("/movimiento").send(movimientos_3[2]).end();
+            chai.request(server).put("/movimiento").send(movimientos_3[3]).end();
+            chai.request(server).put("/movimiento").send(movimientos_3[4])
+            .end((err,res)=>{
+                res.should.have.status(200);            
+                res.should.to.be.json;                       
+                res.should.to.be.a('object');              
+                res.body.should.have.property('gana').eql('Juan');
+                res.body.should.have.property('estado').eql([
+                    ['x','x','x'],
+                    [' ','0',' '],
+                    [' ','0',' '],
+                ]);
+                done();
+                })
+            })
+
+        it("el juego termina cuando hay 3 valores iguales bis_h_2",(done)=>{
+                let movimientos_4 = [
+                    { jugador: 'Juan', columna: 0, fila: 0 },
+                    { jugador: 'Pedro', columna: 1, fila: 1 },
+                    { jugador: 'Juan', columna: 1, fila: 0 },
+                    { jugador: 'Pedro', columna: 0, fila: 1 },
+                    { jugador: 'Juan', columna: 2, fila: 2 },
+                    { jugador: 'Pedro', columna: 2, fila: 1 },
+                ];
+                chai.request(server).put("/empezar").send(juego).end();
+                chai.request(server).put("/movimiento").send(movimientos_4[0]).end();
+                chai.request(server).put("/movimiento").send(movimientos_4[1]).end();
+                chai.request(server).put("/movimiento").send(movimientos_4[2]).end();
+                chai.request(server).put("/movimiento").send(movimientos_4[3]).end();
+                chai.request(server).put("/movimiento").send(movimientos_4[4]).end();
+                chai.request(server).put("/movimiento").send(movimientos_4[5])
+                .end((err,res)=>{
+                    res.should.have.status(200);            
+                    res.should.to.be.json;                       
+                    res.should.to.be.a('object');              
+                    res.body.should.have.property('gana').eql('Pedro');
+                    res.body.should.have.property('estado').eql([
+                        ['x','x',' '],
+                        ['0','0','0'],
+                        [' ',' ','x'],
+                    ]);
+                    done();
+                })
+            
+            })
+        })    
 })
 

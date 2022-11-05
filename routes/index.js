@@ -58,8 +58,21 @@ router.put('/movimiento', function(request, response) {
         }
     } 
   }
+  let ganador=false;
+  respuesta={}
+  console.log(estadoPizarra)
+  for (i=0;i<3;i++){
+    if ((estadoPizarra[0][i]==estadoPizarra[1][i]) && (estadoPizarra[1][i]==estadoPizarra[2][i])&&(estadoPizarra[0][i]!=" ")){
+      ganador=true;
+    }  
+    else if ((estadoPizarra[i][0]==estadoPizarra[i][1]) && (estadoPizarra[i][1]==estadoPizarra[i][2])&&(estadoPizarra[i][2]!=" ")){
+      respuesta={gana:request.body.jugador,estado:estadoPizarra}
+      ganador=true;
+    }  
+  }
+
   
-  if ((estadoPizarra[0][0]==estadoPizarra[1][0]) && (estadoPizarra[1][0]==estadoPizarra[2][0]))
+  if (ganador==true)
         {
           respuesta={gana:request.body.jugador,estado:estadoPizarra}
         }
