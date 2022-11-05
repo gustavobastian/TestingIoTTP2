@@ -10,12 +10,12 @@ chai.use(chaihttp)
 *En un juego nuevo el tablero esta vacio y mueve el primer jugador 
 *completar una casilla, el tablero tiene una casilla ocupada y le toca mover al segundo jugador 
 *completar una casilla, el tablero tiene dos casillas ocupada y le toca al primer jugador
-*no debe aceptar movimientos de jugadores que no le corresponden 
+*no debe aceptar movimientos de jugadores que no le corresponden
+*si un jugador quiere marcar una posicion ocupada tiene un error y sigue su tiempo de mover  
 *si 3 filas tienen la marca de un mismo jugador gano 
 *si 3 columnas tienen la marca de un mismo jugador gano
 *si una diagonal tiene la marca de un mismo jugador gano
 *si no hay mas espacios en el tablero es empate
-*si un jugador quiere marcar una posicion ocupada tiene un error y sigue su tiempo de mover 
 */
 
 
@@ -76,6 +76,7 @@ describe("juego de tateti", async ()=>{
             { jugador: 'Juan', columna: 0, fila: 1 },
             { jugador: 'Pedro', columna: 1, fila: 1 },
             { jugador: 'Juan', columna: 0, fila: 2 },
+            { jugador: 'Pedro', columna: 0, fila: 0 },
         ]
         let juego = ['Juan','Pedro']
         it ("El casillero queda ocupado y le toca al otro jugador", (done)=>{
@@ -131,5 +132,26 @@ describe("juego de tateti", async ()=>{
                 done();
             })
         })
+
+        it ("si un jugador quiere marcar una posicion ocupada tiene un error y sigue su tiempo de mover ", (done)=>{
+            chai.request(server).put("/empezar").send(juego).end();
+            chai.request(server).put("/movimiento").send(movimientos[0]).end();
+            chai.request(server)
+            .put("/movimiento")
+            .send(movimientos[5])
+            .end((err,res)=>{
+                res.should.have.status(200);            
+                res.should.to.be.json;                       
+                res.body.should.have.property('turno').eql('Pedro');
+                res.body.should.have.property('estado').eql([
+                    ['x',' ',' '],
+                    [' ',' ',' '],
+                    [' ',' ',' '],
+                ]);
+                done();
+            })
+        })
+
     })
 })
+

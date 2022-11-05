@@ -41,16 +41,21 @@ router.put('/movimiento', function(request, response) {
   //gestiono turnos  
   if(turnoLocal==request.body.jugador)
   {
-    if(request.body.jugador==jugadores[0]){
-      turnoLocal=jugadores[1];    
-      marcaJugador=marcas[1];
-      estadoPizarra[fila][columna]=marcaJugador;  
-      }
-    else{
-      turnoLocal=jugadores[0];
-      marcaJugador=marcas[0];
-      estadoPizarra[fila][columna]=marcaJugador;  
-      }
+    if (estadoPizarra[fila][columna]==" ")
+    {
+      if(request.body.jugador==jugadores[0])
+      {
+        turnoLocal=jugadores[1];    
+        marcaJugador=marcas[1];
+        estadoPizarra[fila][columna]=marcaJugador;  
+        }
+      else
+      {
+        turnoLocal=jugadores[0];
+        marcaJugador=marcas[0];
+        estadoPizarra[fila][columna]=marcaJugador;  
+        }
+    } 
   }
   
   
