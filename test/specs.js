@@ -53,10 +53,7 @@ describe("juego de tateti", async ()=>{
         })
         
         it ("Le toca mover al primer jugador",(done)=>{
-            /*let juego = {
-                jugadores: ['Juan','Pedro']
-            }*/
-            
+                        
             chai.request(server)
             .put("/empezar")
             .send(juego)
@@ -158,7 +155,8 @@ describe("juego de tateti", async ()=>{
         })
 
     })
-    describe(" el primer jugador gana la partida", ()=>{
+
+    describe("Muchas opciones de finalización", ()=>{
 
         it("el juego termina cuando hay 3 valores iguales",(done)=>{
             chai.request(server).put("/empezar").send(juego).end();
@@ -324,6 +322,43 @@ describe("juego de tateti", async ()=>{
                     [' ','0','x'],
                     ['0','x',' '],
                     ['x',' ',' '],
+                ]);
+                done();
+            })
+        
+        })
+        it("Juego termina con empate ",(done)=>{
+            let movimientos_5 = [
+                { jugador: 'Juan', columna: 0, fila: 0 },
+                { jugador: 'Pedro', columna: 1, fila: 0 },
+                { jugador: 'Juan', columna: 2, fila: 0 },
+                { jugador: 'Pedro', columna: 0, fila: 1 },
+                { jugador: 'Juan', columna: 1, fila: 1 },
+                { jugador: 'Pedro', columna: 2, fila: 1 },
+                { jugador: 'Juan', columna: 0, fila: 2 },
+                { jugador: 'Pedro', columna: 1, fila: 2 },
+                { jugador: 'Juan', columna: 2, fila: 2 },
+                
+            ];
+            chai.request(server).put("/empezar").send(juego).end();
+            chai.request(server).put("/movimiento").send(movimientos_5[0]).end();
+            chai.request(server).put("/movimiento").send(movimientos_5[1]).end();
+            chai.request(server).put("/movimiento").send(movimientos_5[2]).end();
+            chai.request(server).put("/movimiento").send(movimientos_5[3]).end();
+            chai.request(server).put("/movimiento").send(movimientos_5[4]).end();
+            chai.request(server).put("/movimiento").send(movimientos_5[5]).end();
+            chai.request(server).put("/movimiento").send(movimientos_5[6]).end();
+            chai.request(server).put("/movimiento").send(movimientos_5[7]).end();
+            chai.request(server).put("/movimiento").send(movimientos_5[8])            
+            .end((err,res)=>{
+                res.should.have.status(200);            
+                res.should.to.be.json;                       
+                res.should.to.be.a('object');              
+                res.body.should.have.property('empate').eql('empate');
+                res.body.should.have.property('estado').eql([
+                    ['x','0','x'],
+                    ['0','x','0'],
+                    ['x','0','x'],
                 ]);
                 done();
             })

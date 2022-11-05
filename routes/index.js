@@ -7,16 +7,19 @@ var estadoPizarra;
 var turnoLocal;
 var jugadores;
 let marcaJugador;
+let movimientos;
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next) 
+{
   res.render('index', { title: 'Express' });
 });
 
 /* Put empezar. */
-router.put('/empezar', function(request, response) {
+router.put('/empezar', function(request, response) 
+{
     jugadores=request.body;
-    
+    movimientos=9;
     turnoLocal=jugadores[0]
     
     estadoPizarra=[
@@ -35,15 +38,18 @@ router.put('/empezar', function(request, response) {
 });
 
 /* Put movimiento. */
-router.put('/movimiento', function(request, response) {
+router.put('/movimiento', function(request, response) 
+{
   let columna=request.body.columna;
   let fila=request.body.fila;
   let respuesta={}
   let ganador=false;
+  let empate=false;
   respuesta={}
   //busqueda de ganador
 
-  function buscarGanador(){
+  function buscarGanador()
+  {
 
       for (i=0;i<3;i++){
         if ((estadoPizarra[0][i]==estadoPizarra[1][i]) && (estadoPizarra[1][i]==estadoPizarra[2][i])&&(estadoPizarra[0][i]!=" ")){
@@ -68,6 +74,8 @@ router.put('/movimiento', function(request, response) {
   {
     if (estadoPizarra[fila][columna]==" ")
     {
+      movimientos= movimientos-1;
+      
       if(request.body.jugador==jugadores[0])
       {
         turnoLocal=jugadores[1];    
@@ -80,19 +88,28 @@ router.put('/movimiento', function(request, response) {
         marcaJugador=marcas[0];
         estadoPizarra[fila][columna]=marcaJugador;  
         }
+
+        if(movimientos==0)
+        {        
+          empate=true;  
+        }  
     } 
   }
   
   
   buscarGanador();
-  if (ganador==true)
+  if ((ganador==true)&&(empate==false))
         {
           respuesta={gana:request.body.jugador,estado:estadoPizarra}
         }
-  else
+  if(empate==true)
+        {          
+          respuesta={'empate' : "empate", 'estado': estadoPizarra}   
+        }
+  if ((ganador!=true)&&(empate==false))
         {
           respuesta={'turno' : turnoLocal, 'estado': estadoPizarra}   
-        }
+        }      
   
   response.setHeader('Content-Type', 'application/json');      
   response.send(respuesta).status(200);
