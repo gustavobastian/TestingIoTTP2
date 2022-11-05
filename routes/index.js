@@ -39,6 +39,30 @@ router.put('/movimiento', function(request, response) {
   let columna=request.body.columna;
   let fila=request.body.fila;
   let respuesta={}
+  let ganador=false;
+  respuesta={}
+  //busqueda de ganador
+
+  function buscarGanador(){
+
+      for (i=0;i<3;i++){
+        if ((estadoPizarra[0][i]==estadoPizarra[1][i]) && (estadoPizarra[1][i]==estadoPizarra[2][i])&&(estadoPizarra[0][i]!=" ")){
+          ganador=true;
+        }  
+        else if ((estadoPizarra[i][0]==estadoPizarra[i][1]) && (estadoPizarra[i][1]==estadoPizarra[i][2])&&(estadoPizarra[i][2]!=" ")){      
+          ganador=true;
+        }  
+      }
+
+      if ((estadoPizarra[0][0]==estadoPizarra[1][1]) && (estadoPizarra[2][2]==estadoPizarra[1][1])&&(estadoPizarra[0][0]!=" ")){
+        ganador=true;
+      }  
+      if ((estadoPizarra[0][2]==estadoPizarra[1][1]) && (estadoPizarra[2][0]==estadoPizarra[1][1])&&(estadoPizarra[1][1]!=" ")){
+        ganador=true;
+      }  
+
+  }
+
   //gestiono turnos  
   if(turnoLocal==request.body.jugador)
   {
@@ -58,26 +82,9 @@ router.put('/movimiento', function(request, response) {
         }
     } 
   }
-  let ganador=false;
-  respuesta={}
   
-  for (i=0;i<3;i++){
-    if ((estadoPizarra[0][i]==estadoPizarra[1][i]) && (estadoPizarra[1][i]==estadoPizarra[2][i])&&(estadoPizarra[0][i]!=" ")){
-      ganador=true;
-    }  
-    else if ((estadoPizarra[i][0]==estadoPizarra[i][1]) && (estadoPizarra[i][1]==estadoPizarra[i][2])&&(estadoPizarra[i][2]!=" ")){
-      respuesta={gana:request.body.jugador,estado:estadoPizarra}
-      ganador=true;
-    }  
-  }
-
-  if ((estadoPizarra[0][0]==estadoPizarra[1][1]) && (estadoPizarra[2][2]==estadoPizarra[1][1])&&(estadoPizarra[0][0]!=" ")){
-    ganador=true;
-  }  
-  if ((estadoPizarra[0][2]==estadoPizarra[1][1]) && (estadoPizarra[2][0]==estadoPizarra[1][1])&&(estadoPizarra[1][1]!=" ")){
-    ganador=true;
-  }  
   
+  buscarGanador();
   if (ganador==true)
         {
           respuesta={gana:request.body.jugador,estado:estadoPizarra}
