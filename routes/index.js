@@ -38,6 +38,7 @@ router.put('/empezar', function(request, response) {
 router.put('/movimiento', function(request, response) {
   let columna=request.body.columna;
   let fila=request.body.fila;
+  let respuesta={}
   //gestiono turnos  
   if(turnoLocal==request.body.jugador)
   {
@@ -58,12 +59,17 @@ router.put('/movimiento', function(request, response) {
     } 
   }
   
+  if ((estadoPizarra[0][0]==estadoPizarra[1][0]) && (estadoPizarra[1][0]==estadoPizarra[2][0]))
+        {
+          respuesta={gana:request.body.jugador,estado:estadoPizarra}
+        }
+  else
+        {
+          respuesta={'turno' : turnoLocal, 'estado': estadoPizarra}   
+        }
   
   response.setHeader('Content-Type', 'application/json');      
-  response.send({
-    'turno' : turnoLocal,
-    'estado': estadoPizarra    
-  }).status(200);
+  response.send(respuesta).status(200);
 });
 
 module.exports = router;

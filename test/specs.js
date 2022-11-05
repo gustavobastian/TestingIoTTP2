@@ -171,7 +171,7 @@ describe("juego de tateti", async ()=>{
                 res.should.have.status(200);            
                 res.should.to.be.json;                       
                 res.should.to.be.a('object');              
-                res.body.should.have.property('turno').eql('Pedro');
+                res.body.should.have.property('gana').eql('Juan');
                 res.body.should.have.property('estado').eql([
                     ['x','0',' '],
                     ['x','0',' '],
