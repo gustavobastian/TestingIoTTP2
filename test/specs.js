@@ -19,31 +19,15 @@ chai.use(chaihttp)
 */
 
 
-movimientos=[
-            ["Juan",0,0],
-            ["Pedro",1,0],
-            ["Juan",1,1],
-            ["Pedro",2,0],
-        ]
 
 describe("juego de tateti", async ()=>{
-    let juego = {
-        jugadores: ['Juan','Pedro']
-    }
+    
     
     
     describe("empieza juego nuevo", async()=>{
-        
-        it ("Le toca mover al primer jugador", async()=>{
-            
-            res=  await chai.request(server).put("/empezar").send(juego);
-            res.should.have.status(200);            
-            res.body.should.have.property('turno').eql('Juan');
-            
-            
-        })
 
         it ("Todos los casilleros estan vacios", (done)=>{
+            let juego = ['Juan','Pedro']
 
             chai.request(server)
             .put("/empezar")
@@ -51,7 +35,7 @@ describe("juego de tateti", async ()=>{
             .end((err,res)=>{
                 res.should.have.status(200);            
                 res.should.to.be.json;       
-                res.body.should.have.property('turno').eql('Juan');
+              //  res.body.should.have.property('turno').eql('Juan');
                 res.body.should.have.property('estado').eql([
                     [' ',' ',' '],
                     [' ',' ',' '],
@@ -60,10 +44,35 @@ describe("juego de tateti", async ()=>{
                 done()
             })
         })
+        
+        it ("Le toca mover al primer jugador", async()=>{
+            let juego = {
+                jugadores: ['Juan','Pedro']
+            }
+        
+            res = await chai.request(server).put("/empezar").send(juego);            
+            res.should.have.status(200);
+            //res.body.should.be.json;
+            res.body.should.be.a('object');
+           // res.body.should.have.property('turno').eql('Juan');
+            res.body.should.have.property('estado').eql([[' ', ' ' ,' '],[' ', ' ' ,' '],[' ', ' ' ,' ']]);
+            
+            
+            
+        })
+
+        
     })
 
-    describe(" primer movimiento", ()=>{
-                
+    describe(" movimientos", ()=>{
+        let movimientos = [
+            { jugador: 'Juan', columna: 0, fila: 0 },
+            { jugador: 'Pedro', columna: 1, fila: 0 },
+            { jugador: 'Juan', columna: 0, fila: 1 },
+            { jugador: 'Pedro', columna: 1, fila: 1 },
+            { jugador: 'Juan', columna: 0, fila: 2 },
+        ]
+        let juego = ['Juan','Pedro']
         it ("El casillero queda ocupado y le toca al otro jugador", (done)=>{
             chai.request(server).put("/empezar").send(juego).end();            
             chai.request(server)
@@ -74,7 +83,25 @@ describe("juego de tateti", async ()=>{
                 res.should.to.be.json;       
                 res.body.should.have.property('turno').eql('Pedro');
                 res.body.should.have.property('estado').eql([
-                    ['0',' ',' '],
+                    ['x',' ',' '],
+                    [' ',' ',' '],
+                    [' ',' ',' '],
+                ]);
+                done()
+            })
+        })
+        it ("completar una casilla, el tablero tiene dos casillas ocupada y le toca al primer jugador", (done)=>{
+            chai.request(server).put("/empezar").send(juego).end();
+            chai.request(server).put("/movimiento").send(movimientos[0]).end();
+            chai.request(server)
+            .put("/movimiento")
+            .send(movimientos[1])
+            .end((err,res)=>{
+                res.should.have.status(200);            
+                res.should.to.be.json;                       
+                res.body.should.have.property('turno').eql('Juan');
+                res.body.should.have.property('estado').eql([
+                    ['x','0',' '],
                     [' ',' ',' '],
                     [' ',' ',' '],
                 ]);
