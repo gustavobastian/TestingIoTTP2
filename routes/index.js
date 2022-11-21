@@ -11,7 +11,6 @@ let movimientos;
 let ganador=false;
 let empate=false;
 
-
 //busqueda de ganador
 function buscarGanador()
 {
@@ -156,15 +155,15 @@ router.put('/movimiento', function(request, response)
   
   buscarGanador();
 
-  if ((ganador==true)&&(empate==false))
+  if (ganador && !empate)
         {
           respuesta={gana:request.body.jugador,estado:pizarraSt}
         }
-  else if(empate==true)
+  else if(empate)
         {          
           respuesta={'empate' : "empate", 'estado': pizarraSt}   
         }
-  else if ((ganador!=true)&&(empate==false))
+  else if (!ganador && !empate)
         {
           respuesta={'turno' : jugadores[turnoLocal], 'estado': pizarraSt}   
         }      
