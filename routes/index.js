@@ -3,11 +3,12 @@ var router = express.Router();
 
 const marcas=['0','x'];
 
-var estadoPizarra;
+var pizarraSt;
 var turnoLocal;
 var jugadores;
 let marcaJugador;
 let movimientos;
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) 
@@ -22,7 +23,7 @@ router.put('/empezar', function(request, response)
     movimientos=9;
     turnoLocal=jugadores[0]
     
-    estadoPizarra=[
+    pizarraSt=[
       [' ',' ',' '],
       [' ',' ',' '],
       [' ',' ',' ']
@@ -31,7 +32,7 @@ router.put('/empezar', function(request, response)
     response.setHeader('Content-Type', 'application/json')    
     .send({
     'turno': turnoLocal,
-    'estado': estadoPizarra     
+    'estado': pizarraSt     
     })
     .status(200)
     
@@ -52,18 +53,18 @@ router.put('/movimiento', function(request, response)
   {
 
       for (i=0;i<3;i++){
-        if ((estadoPizarra[0][i]==estadoPizarra[1][i]) && (estadoPizarra[1][i]==estadoPizarra[2][i])&&(estadoPizarra[0][i]!=" ")){
+        if ((pizarraSt[0][i]==pizarraSt[1][i]) && (pizarraSt[1][i]==pizarraSt[2][i])&&(pizarraSt[0][i]!=" ")){
           ganador=true;
         }  
-        else if ((estadoPizarra[i][0]==estadoPizarra[i][1]) && (estadoPizarra[i][1]==estadoPizarra[i][2])&&(estadoPizarra[i][2]!=" ")){      
+        else if ((pizarraSt[i][0]==pizarraSt[i][1]) && (pizarraSt[i][1]==pizarraSt[i][2])&&(pizarraSt[i][2]!=" ")){      
           ganador=true;
         }  
       }
 
-      if ((estadoPizarra[0][0]==estadoPizarra[1][1]) && (estadoPizarra[2][2]==estadoPizarra[1][1])&&(estadoPizarra[0][0]!=" ")){
+      if ((pizarraSt[0][0]==pizarraSt[1][1]) && (pizarraSt[2][2]==pizarraSt[1][1])&&(pizarraSt[0][0]!=" ")){
         ganador=true;
       }  
-      if ((estadoPizarra[0][2]==estadoPizarra[1][1]) && (estadoPizarra[2][0]==estadoPizarra[1][1])&&(estadoPizarra[1][1]!=" ")){
+      if ((pizarraSt[0][2]==pizarraSt[1][1]) && (pizarraSt[2][0]==pizarraSt[1][1])&&(pizarraSt[1][1]!=" ")){
         ganador=true;
       }  
 
@@ -72,7 +73,7 @@ router.put('/movimiento', function(request, response)
   //gestiono turnos  
   if(turnoLocal==request.body.jugador)
   {
-    if (estadoPizarra[fila][columna]==" ")
+    if (pizarraSt[fila][columna]==" ")
     {
       movimientos= movimientos-1;
       
@@ -80,13 +81,13 @@ router.put('/movimiento', function(request, response)
       {
         turnoLocal=jugadores[1];    
         marcaJugador=marcas[1];
-        estadoPizarra[fila][columna]=marcaJugador;  
+        pizarraSt[fila][columna]=marcaJugador;  
         }
       else
       {
         turnoLocal=jugadores[0];
         marcaJugador=marcas[0];
-        estadoPizarra[fila][columna]=marcaJugador;  
+        pizarraSt[fila][columna]=marcaJugador;  
         }
 
         if(movimientos==0)
@@ -100,15 +101,15 @@ router.put('/movimiento', function(request, response)
   buscarGanador();
   if ((ganador==true)&&(empate==false))
         {
-          respuesta={gana:request.body.jugador,estado:estadoPizarra}
+          respuesta={gana:request.body.jugador,estado:pizarraSt}
         }
   else if(empate==true)
         {          
-          respuesta={'empate' : "empate", 'estado': estadoPizarra}   
+          respuesta={'empate' : "empate", 'estado': pizarraSt}   
         }
   else if ((ganador!=true)&&(empate==false))
         {
-          respuesta={'turno' : turnoLocal, 'estado': estadoPizarra}   
+          respuesta={'turno' : turnoLocal, 'estado': pizarraSt}   
         }      
   
   response.setHeader('Content-Type', 'application/json');      
