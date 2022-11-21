@@ -34,8 +34,6 @@ function buscarGanador()
 
 }
 
-
-
 function checkDiagonal(){
   let output = false;
   if (pizarraSt[0][0]==pizarraSt[1][1]) 
@@ -100,7 +98,7 @@ router.put('/empezar', function(request, response)
 {
     jugadores=request.body;
     movimientos=9;
-    turnoLocal=jugadores[0]
+    turnoLocal=0
     ganador=false;
     empate=false;
 
@@ -113,7 +111,7 @@ router.put('/empezar', function(request, response)
      
     response.setHeader('Content-Type', 'application/json')    
     .send({
-    'turno': turnoLocal,
+    'turno': jugadores[turnoLocal],
     'estado': pizarraSt     
     })
     .status(200)
@@ -130,7 +128,7 @@ router.put('/movimiento', function(request, response)
   respuesta={}
   
   //gestiono turnos  
-  if(turnoLocal==request.body.jugador)
+  if(jugadores[turnoLocal]==request.body.jugador)
   {
     if (pizarraSt[fila][columna]==" ")
     {
@@ -138,13 +136,13 @@ router.put('/movimiento', function(request, response)
       
       if(request.body.jugador==jugadores[0])
       {
-        turnoLocal=jugadores[1];    
+        turnoLocal=1;    
         marcaJugador=marcas[1];
         pizarraSt[fila][columna]=marcaJugador;  
         }
       else
       {
-        turnoLocal=jugadores[0];
+        turnoLocal=0;
         marcaJugador=marcas[0];
         pizarraSt[fila][columna]=marcaJugador;  
         }
@@ -168,7 +166,7 @@ router.put('/movimiento', function(request, response)
         }
   else if ((ganador!=true)&&(empate==false))
         {
-          respuesta={'turno' : turnoLocal, 'estado': pizarraSt}   
+          respuesta={'turno' : jugadores[turnoLocal], 'estado': pizarraSt}   
         }      
   
   response.setHeader('Content-Type', 'application/json');      
