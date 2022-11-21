@@ -10,6 +10,59 @@ let marcaJugador;
 let movimientos;
 
 
+function checkDiagonal(){
+  let output = false;
+  if (pizarraSt[0][0]==pizarraSt[1][1]) 
+    {
+      if (pizarraSt[2][2]==pizarraSt[1][1]) 
+      {
+        if (pizarraSt[0][0]!=" "){
+          return   output=true;
+        }
+      }  
+    }  
+  if (pizarraSt[0][2]==pizarraSt[1][1]) 
+    {
+      if (pizarraSt[2][0]==pizarraSt[1][1])
+      {
+        if (pizarraSt[1][1]!=" ")
+          {
+          return   output=true;
+          }
+      }    
+    }    
+  return output;
+}
+
+function checkColumna(col){
+  output=false;
+  if (pizarraSt[0][col]==pizarraSt[1][col]) 
+  {
+    if (pizarraSt[1][col]==pizarraSt[2][col])
+      {
+        if(pizarraSt[0][col]!=" ")
+          {
+            return output=true;
+          }
+      }
+  }  
+  return output=false;
+}
+function checkFila(fil){
+  output=false;
+  if (pizarraSt[fil][0]==pizarraSt[fil][1]) 
+  {
+    if (pizarraSt[fil][1]==pizarraSt[fil][2])
+      {
+        if(pizarraSt[fil][0]!=" ")
+          {
+            return output=true;
+          }
+      }
+  }  
+  return output=false;
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) 
 {
@@ -53,19 +106,19 @@ router.put('/movimiento', function(request, response)
   {
 
       for (i=0;i<3;i++){
-        if ((pizarraSt[0][i]==pizarraSt[1][i]) && (pizarraSt[1][i]==pizarraSt[2][i])&&(pizarraSt[0][i]!=" ")){
+        if (checkColumna(i)==true){
           ganador=true;
+          return;
         }  
-        else if ((pizarraSt[i][0]==pizarraSt[i][1]) && (pizarraSt[i][1]==pizarraSt[i][2])&&(pizarraSt[i][2]!=" ")){      
+        else if (checkFila(i)==true){
           ganador=true;
+          return;
         }  
       }
 
-      if ((pizarraSt[0][0]==pizarraSt[1][1]) && (pizarraSt[2][2]==pizarraSt[1][1])&&(pizarraSt[0][0]!=" ")){
+      if (checkDiagonal()==true){
         ganador=true;
-      }  
-      if ((pizarraSt[0][2]==pizarraSt[1][1]) && (pizarraSt[2][0]==pizarraSt[1][1])&&(pizarraSt[1][1]!=" ")){
-        ganador=true;
+        return;
       }  
 
   }
