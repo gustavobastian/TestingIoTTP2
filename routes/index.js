@@ -8,6 +8,32 @@ var turnoLocal;
 var jugadores;
 let marcaJugador;
 let movimientos;
+let ganador=false;
+let empate=false;
+
+
+//busqueda de ganador
+function buscarGanador()
+{
+
+    for (i=0;i<3;i++){
+      if (checkColumna(i)==true){
+        ganador=true;
+        return;
+      }  
+      else if (checkFila(i)==true){
+        ganador=true;
+        return;
+      }  
+    }
+
+    if (checkDiagonal()==true){
+      ganador=true;
+      return;
+    }  
+
+}
+
 
 
 function checkDiagonal(){
@@ -75,6 +101,9 @@ router.put('/empezar', function(request, response)
     jugadores=request.body;
     movimientos=9;
     turnoLocal=jugadores[0]
+    ganador=false;
+    empate=false;
+
     
     pizarraSt=[
       [' ',' ',' '],
@@ -97,32 +126,9 @@ router.put('/movimiento', function(request, response)
   let columna=request.body.columna;
   let fila=request.body.fila;
   let respuesta={}
-  let ganador=false;
-  let empate=false;
+  
   respuesta={}
-  //busqueda de ganador
-
-  function buscarGanador()
-  {
-
-      for (i=0;i<3;i++){
-        if (checkColumna(i)==true){
-          ganador=true;
-          return;
-        }  
-        else if (checkFila(i)==true){
-          ganador=true;
-          return;
-        }  
-      }
-
-      if (checkDiagonal()==true){
-        ganador=true;
-        return;
-      }  
-
-  }
-
+  
   //gestiono turnos  
   if(turnoLocal==request.body.jugador)
   {
@@ -148,10 +154,10 @@ router.put('/movimiento', function(request, response)
           empate=true;  
         }  
     } 
-  }
-  
+  } 
   
   buscarGanador();
+
   if ((ganador==true)&&(empate==false))
         {
           respuesta={gana:request.body.jugador,estado:pizarraSt}
