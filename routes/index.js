@@ -16,17 +16,17 @@ function buscarGanador()
 {
 
     for (i=0;i<3;i++){
-      if (checkColumna(i)==true){
+      if (checkColumna(i)){
         ganador=true;
         return;
       }  
-      else if (checkFila(i)==true){
+      else if (checkFila(i)){
         ganador=true;
         return;
       }  
     }
 
-    if (checkDiagonal()==true){
+    if (checkDiagonal()){
       ganador=true;
       return;
     }  
