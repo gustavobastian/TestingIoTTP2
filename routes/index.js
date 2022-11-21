@@ -102,11 +102,11 @@ router.put('/movimiento', function(request, response)
         {
           respuesta={gana:request.body.jugador,estado:estadoPizarra}
         }
-  if(empate==true)
+  else if(empate==true)
         {          
           respuesta={'empate' : "empate", 'estado': estadoPizarra}   
         }
-  if ((ganador!=true)&&(empate==false))
+  else if ((ganador!=true)&&(empate==false))
         {
           respuesta={'turno' : turnoLocal, 'estado': estadoPizarra}   
         }      
