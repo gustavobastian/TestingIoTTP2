@@ -14,8 +14,8 @@ let empate=false;
 
 function buscarGanador()
 {
-
-    for (i=0;i<3;i++){
+    for (i=0;i<3;i++)
+    {
       if (checkColumna(i))
       {
         ganador=true;
@@ -27,7 +27,6 @@ function buscarGanador()
         return;
       }  
     }
-
     if (checkDiagonal())
     {
       ganador=true;
