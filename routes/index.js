@@ -16,30 +16,35 @@ function buscarGanador()
 {
 
     for (i=0;i<3;i++){
-      if (checkColumna(i)){
+      if (checkColumna(i))
+      {
         ganador=true;
         return;
       }  
-      else if (checkFila(i)){
+      else if (checkFila(i))
+      {
         ganador=true;
         return;
       }  
     }
 
-    if (checkDiagonal()){
+    if (checkDiagonal())
+    {
       ganador=true;
       return;
     }  
 
 }
 
-function checkDiagonal(){
+function checkDiagonal()
+{
   let output = false;
   if (pizarraSt[0][0]==pizarraSt[1][1]) 
     {
       if (pizarraSt[2][2]==pizarraSt[1][1]) 
       {
-        if (pizarraSt[0][0]!=" "){
+        if (pizarraSt[0][0]!=" ")
+        {
           return   output=true;
         }
       }  
@@ -57,7 +62,8 @@ function checkDiagonal(){
   return output;
 }
 
-function checkColumna(col){
+function checkColumna(col)
+{
   output=false;
   if (pizarraSt[0][col]==pizarraSt[1][col]) 
   {
@@ -71,7 +77,9 @@ function checkColumna(col){
   }  
   return output=false;
 }
-function checkFila(fil){
+
+function checkFila(fil)
+{
   output=false;
   if (pizarraSt[fil][0]==pizarraSt[fil][1]) 
   {
@@ -146,7 +154,7 @@ router.put('/movimiento', function(request, response)
         pizarraSt[fila][columna]=marcaJugador;  
         }
 
-        if(movimientos==0)
+      if(movimientos==0)
         {        
           empate=true;  
         }  

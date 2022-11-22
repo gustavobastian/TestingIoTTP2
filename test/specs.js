@@ -20,7 +20,8 @@ chai.use(chaihttp)
 
 
 
-describe("juego de tateti", async ()=>{ 
+describe("juego de tateti", async ()=>
+{ 
     let movimientos = [
         { jugador: 'Juan', columna: 0, fila: 0 },
         { jugador: 'Pedro', columna: 1, fila: 0 },
@@ -31,9 +32,11 @@ describe("juego de tateti", async ()=>{
     ];
     let juego = ['Juan','Pedro'];
             
-    describe("empieza juego nuevo", async()=>{
+    describe("empieza juego nuevo", async()=>
+    {
 
-        it ("Todos los casilleros estan vacios", (done)=>{
+        it ("Todos los casilleros estan vacios", (done)=>
+        {
             
             chai.request(server)
             .put("/empezar")
@@ -52,7 +55,8 @@ describe("juego de tateti", async ()=>{
             })
         })
         
-        it ("Le toca mover al primer jugador",(done)=>{
+        it ("Le toca mover al primer jugador",(done)=>
+        {
                         
             chai.request(server)
             .put("/empezar")
@@ -74,9 +78,11 @@ describe("juego de tateti", async ()=>{
         
     })
 
-    describe(" movimientos", ()=>{
+    describe(" movimientos", ()=>
+    {
         
-        it ("El casillero queda ocupado y le toca al otro jugador", (done)=>{
+        it ("El primer jugador mueve, el casillero queda ocupado y le toca al otro jugador", (done)=>
+        {
             chai.request(server).put("/empezar").send(juego).end();            
             chai.request(server)
             .put("/movimiento")
@@ -94,13 +100,15 @@ describe("juego de tateti", async ()=>{
                 done()
             })
         })
-        it ("completar una casilla, el tablero tiene dos casillas ocupada y le toca al primer jugador", (done)=>{
+        it ("Mueve el 1er jugador, luego el segundo, el tablero tiene dos casillas ocupada y le toca al primer jugador", (done)=>
+        {
             chai.request(server).put("/empezar").send(juego).end();
             chai.request(server).put("/movimiento").send(movimientos[0]).end();
             chai.request(server)
             .put("/movimiento")
             .send(movimientos[1])
-            .end((err,res)=>{
+            .end((err,res)=>
+            {
                 res.should.have.status(200);            
                 res.should.to.be.json;     
                 res.should.to.be.a('object');                    
@@ -114,13 +122,15 @@ describe("juego de tateti", async ()=>{
             })
         })
 
-        it ("no debe aceptar movimientos de jugadores que no le corresponden ", (done)=>{
+        it ("Mueve un jugador cuyo turno no corresponde", (done)=>
+        {
             chai.request(server).put("/empezar").send(juego).end();
             chai.request(server).put("/movimiento").send(movimientos[0]).end();
             chai.request(server)
             .put("/movimiento")
             .send(movimientos[2])
-            .end((err,res)=>{
+            .end((err,res)=>
+            {
                 res.should.have.status(200);            
                 res.should.to.be.json;     
                 res.should.to.be.a('object');                    
@@ -134,7 +144,8 @@ describe("juego de tateti", async ()=>{
             })
         })
 
-        it ("si un jugador quiere marcar una posicion ocupada tiene un error y sigue su tiempo de mover ", (done)=>{
+        it ("Un jugador quiere marcar una posicion ocupada, tiene un error y sigue su tiempo de mover ", (done)=>
+        {
             chai.request(server).put("/empezar").send(juego).end();
             chai.request(server).put("/movimiento").send(movimientos[0]).end();
             chai.request(server)
@@ -156,16 +167,19 @@ describe("juego de tateti", async ()=>{
 
     })
 
-    describe("Muchas opciones de finalización", ()=>{
+    describe("Muchas opciones de finalización", ()=>
+    {
 
-        it("el juego termina cuando hay 3 valores iguales",(done)=>{
+        it("el juego termina cuando hay 3 valores iguales",(done)=>
+        {
             chai.request(server).put("/empezar").send(juego).end();
             chai.request(server).put("/movimiento").send(movimientos[0]).end();
             chai.request(server).put("/movimiento").send(movimientos[1]).end();
             chai.request(server).put("/movimiento").send(movimientos[2]).end();
             chai.request(server).put("/movimiento").send(movimientos[3]).end();
             chai.request(server).put("/movimiento").send(movimientos[4])
-            .end((err,res)=>{
+            .end((err,res)=>
+            {
                 res.should.have.status(200);            
                 res.should.to.be.json;                       
                 res.should.to.be.a('object');              
@@ -179,7 +193,8 @@ describe("juego de tateti", async ()=>{
             })
         })
 
-        it("el juego termina cuando hay 3 valores iguales bis",(done)=>{
+        it("el juego termina cuando hay 3 valores iguales bis",(done)=>
+        {
             let movimientos_2 = [
                 { jugador: 'Juan', columna: 2, fila: 0 },
                 { jugador: 'Pedro', columna: 1, fila: 0 },
@@ -194,7 +209,8 @@ describe("juego de tateti", async ()=>{
             chai.request(server).put("/movimiento").send(movimientos_2[2]).end();
             chai.request(server).put("/movimiento").send(movimientos_2[3]).end();
             chai.request(server).put("/movimiento").send(movimientos_2[4])
-            .end((err,res)=>{
+            .end((err,res)=>
+            {
                 res.should.have.status(200);            
                 res.should.to.be.json;                       
                 res.should.to.be.a('object');              
@@ -208,7 +224,8 @@ describe("juego de tateti", async ()=>{
             })
         })    
 
-        it("el juego termina cuando hay 3 valores iguales bis_h",(done)=>{
+        it("el juego termina cuando hay 3 valores iguales bis_h",(done)=>
+        {
             let movimientos_3 = [
                 { jugador: 'Juan', columna: 0, fila: 0 },
                 { jugador: 'Pedro', columna: 1, fila: 2 },
@@ -223,7 +240,8 @@ describe("juego de tateti", async ()=>{
             chai.request(server).put("/movimiento").send(movimientos_3[2]).end();
             chai.request(server).put("/movimiento").send(movimientos_3[3]).end();
             chai.request(server).put("/movimiento").send(movimientos_3[4])
-            .end((err,res)=>{
+            .end((err,res)=>
+            {
                 res.should.have.status(200);            
                 res.should.to.be.json;                       
                 res.should.to.be.a('object');              
@@ -237,7 +255,8 @@ describe("juego de tateti", async ()=>{
                 })
             })
 
-        it("el juego termina cuando hay 3 valores iguales bis_h_2",(done)=>{
+        it("el juego termina cuando hay 3 valores iguales bis_h_2",(done)=>
+        {
                 let movimientos_4 = [
                     { jugador: 'Juan', columna: 0, fila: 0 },
                     { jugador: 'Pedro', columna: 1, fila: 1 },
@@ -253,7 +272,8 @@ describe("juego de tateti", async ()=>{
                 chai.request(server).put("/movimiento").send(movimientos_4[3]).end();
                 chai.request(server).put("/movimiento").send(movimientos_4[4]).end();
                 chai.request(server).put("/movimiento").send(movimientos_4[5])
-                .end((err,res)=>{
+                .end((err,res)=>
+                {
                     res.should.have.status(200);            
                     res.should.to.be.json;                       
                     res.should.to.be.a('object');              
@@ -269,7 +289,8 @@ describe("juego de tateti", async ()=>{
             })
           
 
-        it("el juego termina cuando hay 3 valores iguales en diagonal",(done)=>{
+        it("el juego termina cuando hay 3 valores iguales en diagonal",(done)=>
+        {
             let movimientos_4 = [
                 { jugador: 'Juan', columna: 0, fila: 0 },
                 { jugador: 'Pedro', columna: 1, fila: 0 },
@@ -284,7 +305,8 @@ describe("juego de tateti", async ()=>{
             chai.request(server).put("/movimiento").send(movimientos_4[2]).end();
             chai.request(server).put("/movimiento").send(movimientos_4[3]).end();
             chai.request(server).put("/movimiento").send(movimientos_4[4])            
-            .end((err,res)=>{
+            .end((err,res)=>
+            {
                 res.should.have.status(200);            
                 res.should.to.be.json;                       
                 res.should.to.be.a('object');              
@@ -298,7 +320,8 @@ describe("juego de tateti", async ()=>{
             })
         
         })
-        it("el juego termina cuando hay 3 valores iguales en diagonal_2",(done)=>{
+        it("el juego termina cuando hay 3 valores iguales en diagonal_2",(done)=>
+        {
             let movimientos_4 = [
                 { jugador: 'Juan', columna: 2, fila: 0 },
                 { jugador: 'Pedro', columna: 1, fila: 0 },
@@ -327,7 +350,8 @@ describe("juego de tateti", async ()=>{
             })
         
         })
-        it("Juego termina con empate ",(done)=>{
+        it("Juego termina con empate ",(done)=>
+        {
             let movimientos_5 = [
                 { jugador: 'Juan', columna: 0, fila: 0 },
                 { jugador: 'Pedro', columna: 1, fila: 0 },
@@ -350,7 +374,8 @@ describe("juego de tateti", async ()=>{
             chai.request(server).put("/movimiento").send(movimientos_5[6]).end();
             chai.request(server).put("/movimiento").send(movimientos_5[7]).end();
             chai.request(server).put("/movimiento").send(movimientos_5[8])            
-            .end((err,res)=>{
+            .end((err,res)=>
+            {
                 res.should.have.status(200);            
                 res.should.to.be.json;                       
                 res.should.to.be.a('object');              
