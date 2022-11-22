@@ -5,7 +5,6 @@ let server = require("../app");
 
 chai.use(chaihttp)
 
-
 describe("juego de tateti", async ()=>
 { 
     let movimientos = [
@@ -151,10 +150,9 @@ describe("juego de tateti", async ()=>
 
     })
 
-    describe("Muchas opciones de finalización", ()=>
+    describe("Distintas opciones de finalización", ()=>
     {
-
-        it("el juego termina cuando hay 3 valores iguales",(done)=>
+        it("el juego termina cuando hay 3 marcas del mismo jugador en columna 1",(done)=>
         {
             chai.request(server).put("/empezar").send(juego).end();
             chai.request(server).put("/movimiento").send(movimientos[0]).end();
@@ -177,7 +175,7 @@ describe("juego de tateti", async ()=>
             })
         })
 
-        it("el juego termina cuando hay 3 valores iguales bis",(done)=>
+        it("el juego termina cuando hay 3 marcas del mismo jugador en columna 2",(done)=>
         {
             let movimientos_2 = [
                 { jugador: 'Juan', columna: 2, fila: 0 },
@@ -208,7 +206,7 @@ describe("juego de tateti", async ()=>
             })
         })    
 
-        it("el juego termina cuando hay 3 valores iguales bis_h",(done)=>
+        it("el juego termina cuando hay 3  marcas del mismo jugador en fila 1",(done)=>
         {
             let movimientos_3 = [
                 { jugador: 'Juan', columna: 0, fila: 0 },
@@ -239,7 +237,7 @@ describe("juego de tateti", async ()=>
                 })
             })
 
-        it("el juego termina cuando hay 3 valores iguales bis_h_2",(done)=>
+        it("el juego termina cuando hay 3  marcas del mismo jugador en fila 2",(done)=>
         {
                 let movimientos_4 = [
                     { jugador: 'Juan', columna: 0, fila: 0 },
@@ -273,7 +271,7 @@ describe("juego de tateti", async ()=>
             })
           
 
-        it("el juego termina cuando hay 3 valores iguales en diagonal",(done)=>
+        it("el juego termina cuando hay 3  marcas del mismo jugador en diagonal 1",(done)=>
         {
             let movimientos_4 = [
                 { jugador: 'Juan', columna: 0, fila: 0 },
@@ -304,7 +302,7 @@ describe("juego de tateti", async ()=>
             })
         
         })
-        it("el juego termina cuando hay 3 valores iguales en diagonal_2",(done)=>
+        it("el juego termina cuando hay 3  marcas del mismo jugador en diagonal 2",(done)=>
         {
             let movimientos_4 = [
                 { jugador: 'Juan', columna: 2, fila: 0 },
