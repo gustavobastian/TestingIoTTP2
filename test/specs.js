@@ -2,7 +2,6 @@ let chai = require("chai");
 let chaihttp = require("chai-http");
 let should = chai.should();
 let server = require("../app");
-
 chai.use(chaihttp)
 
 describe("juego de tateti", async ()=>
@@ -15,14 +14,11 @@ describe("juego de tateti", async ()=>
         { jugador: 'Juan', columna: 0, fila: 2 },
         { jugador: 'Pedro', columna: 0, fila: 0 },
     ];
-    let juego = ['Juan','Pedro'];
-            
+    let juego = ['Juan','Pedro'];            
     describe("empieza juego nuevo", async()=>
     {
-
         it ("Todos los casilleros estan vacios", (done)=>
         {
-            
             chai.request(server)
             .put("/empezar")
             .send(juego)
@@ -38,8 +34,7 @@ describe("juego de tateti", async ()=>
                 ]);
                 done();
             })
-        })
-        
+        })        
         it ("Le toca mover al primer jugador",(done)=>
         {
                         
@@ -60,10 +55,8 @@ describe("juego de tateti", async ()=>
             })
         })
     })
-
     describe(" movimientos", ()=>
-    {
-        
+    {        
         it ("El primer jugador mueve, el casillero queda ocupado y le toca al otro jugador", (done)=>
         {
             chai.request(server).put("/empezar").send(juego).end();            
@@ -104,7 +97,6 @@ describe("juego de tateti", async ()=>
                 done();
             })
         })
-
         it ("Mueve un jugador cuyo turno no corresponde", (done)=>
         {
             chai.request(server).put("/empezar").send(juego).end();
@@ -126,7 +118,6 @@ describe("juego de tateti", async ()=>
                 done();
             })
         })
-
         it ("Un jugador quiere marcar una posicion ocupada, tiene un error y sigue su tiempo de mover ", (done)=>
         {
             chai.request(server).put("/empezar").send(juego).end();
@@ -147,9 +138,7 @@ describe("juego de tateti", async ()=>
                 done();
             })
         })
-
     })
-
     describe("Distintas opciones de finalización", ()=>
     {
         it("el juego termina cuando hay 3 marcas del mismo jugador en columna 1",(done)=>
@@ -205,7 +194,6 @@ describe("juego de tateti", async ()=>
                 done();
             })
         })    
-
         it("el juego termina cuando hay 3  marcas del mismo jugador en fila 1",(done)=>
         {
             let movimientos_3 = [
@@ -236,7 +224,6 @@ describe("juego de tateti", async ()=>
                 done();
                 })
             })
-
         it("el juego termina cuando hay 3  marcas del mismo jugador en fila 2",(done)=>
         {
                 let movimientos_4 = [
@@ -267,10 +254,7 @@ describe("juego de tateti", async ()=>
                     ]);
                     done();
                 })
-            
             })
-          
-
         it("el juego termina cuando hay 3  marcas del mismo jugador en diagonal 1",(done)=>
         {
             let movimientos_4 = [
@@ -329,8 +313,7 @@ describe("juego de tateti", async ()=>
                     ['x',' ',' '],
                 ]);
                 done();
-            })
-        
+            })        
         })
         it("Juego termina con empate ",(done)=>
         {
@@ -369,7 +352,6 @@ describe("juego de tateti", async ()=>
                 ]);
                 done();
             })
-        
         })
     })      
 })

@@ -151,9 +151,7 @@ router.put('/movimiento', function(request, response)
         }  
     } 
   } 
-  
   buscarGanador();
-
   if (ganador && !empate)
         {
           respuesta={gana:request.body.jugador,estado:pizarraSt}
@@ -166,7 +164,6 @@ router.put('/movimiento', function(request, response)
         {
           respuesta={'turno' : jugadores[turnoLocal], 'estado': pizarraSt}   
         }      
-
   response.setHeader('Content-Type', 'application/json');      
   response.send(respuesta).status(200);
 });
