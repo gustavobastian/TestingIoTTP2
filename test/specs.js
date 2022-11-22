@@ -22,18 +22,19 @@ describe("juego de tateti", async ()=>
             chai.request(server)
             .put("/empezar")
             .send(juego)
-            .end((err,res)=>{
-                res.should.have.status(200);            
-                res.should.to.be.json;       
-                res.should.to.be.a('object');  
-                res.body.should.have.property('turno').eql('Juan');
-                res.body.should.have.property('estado').eql([
-                    [' ',' ',' '],
-                    [' ',' ',' '],
-                    [' ',' ',' '],
-                ]);
-                done();
-            })
+            .end((err,res)=>
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;       
+                    res.should.to.be.a('object');  
+                    res.body.should.have.property('turno').eql('Juan');
+                    res.body.should.have.property('estado').eql([
+                        [' ',' ',' '],
+                        [' ',' ',' '],
+                        [' ',' ',' '],
+                    ]);
+                    done();
+                })
         })        
         it ("Le toca mover al primer jugador",(done)=>
         {
@@ -41,18 +42,19 @@ describe("juego de tateti", async ()=>
             chai.request(server)
             .put("/empezar")
             .send(juego)
-            .end((err,res)=>{            
-                res.should.have.status(200);            
-                res.should.to.be.json;    
-                res.should.to.be.a('object');     
-                res.body.should.have.property('turno').eql('Juan');
-                res.body.should.have.property('estado').eql([
-                    [' ',' ',' '],
-                    [' ',' ',' '],
-                    [' ',' ',' '],
-                ]);
-                done();
-            })
+            .end((err,res)=>
+                {            
+                    res.should.have.status(200);            
+                    res.should.to.be.json;    
+                    res.should.to.be.a('object');     
+                    res.body.should.have.property('turno').eql('Juan');
+                    res.body.should.have.property('estado').eql([
+                        [' ',' ',' '],
+                        [' ',' ',' '],
+                        [' ',' ',' '],
+                    ]);
+                    done();
+                })
         })
     })
     describe(" movimientos", ()=>
@@ -63,18 +65,19 @@ describe("juego de tateti", async ()=>
             chai.request(server)
             .put("/movimiento")
             .send(movimientos[0])
-            .end((err,res)=>{
-                res.should.have.status(200);            
-                res.should.to.be.json;     
-                res.should.to.be.a('object');    
-                res.body.should.have.property('turno').eql('Pedro');
-                res.body.should.have.property('estado').eql([
-                    ['x',' ',' '],
-                    [' ',' ',' '],
-                    [' ',' ',' '],
-                ]);
-                done()
-            })
+            .end((err,res)=>
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;     
+                    res.should.to.be.a('object');    
+                    res.body.should.have.property('turno').eql('Pedro');
+                    res.body.should.have.property('estado').eql([
+                        ['x',' ',' '],
+                        [' ',' ',' '],
+                        [' ',' ',' '],
+                    ]);
+                    done()
+                })
         })
         it ("Mueve el 1er jugador, luego el segundo, el tablero tiene dos casillas ocupada y le toca al primer jugador", (done)=>
         {
@@ -84,18 +87,18 @@ describe("juego de tateti", async ()=>
             .put("/movimiento")
             .send(movimientos[1])
             .end((err,res)=>
-            {
-                res.should.have.status(200);            
-                res.should.to.be.json;     
-                res.should.to.be.a('object');                    
-                res.body.should.have.property('turno').eql('Juan');
-                res.body.should.have.property('estado').eql([
-                    ['x','0',' '],
-                    [' ',' ',' '],
-                    [' ',' ',' '],
-                ]);
-                done();
-            })
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;     
+                    res.should.to.be.a('object');                    
+                    res.body.should.have.property('turno').eql('Juan');
+                    res.body.should.have.property('estado').eql([
+                        ['x','0',' '],
+                        [' ',' ',' '],
+                        [' ',' ',' '],
+                    ]);
+                    done();
+                })
         })
         it ("Mueve un jugador cuyo turno no corresponde", (done)=>
         {
@@ -105,18 +108,18 @@ describe("juego de tateti", async ()=>
             .put("/movimiento")
             .send(movimientos[2])
             .end((err,res)=>
-            {
-                res.should.have.status(200);            
-                res.should.to.be.json;     
-                res.should.to.be.a('object');                    
-                res.body.should.have.property('turno').eql('Pedro');
-                res.body.should.have.property('estado').eql([
-                    ['x',' ',' '],
-                    [' ',' ',' '],
-                    [' ',' ',' '],
-                ]);
-                done();
-            })
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;     
+                    res.should.to.be.a('object');                    
+                    res.body.should.have.property('turno').eql('Pedro');
+                    res.body.should.have.property('estado').eql([
+                        ['x',' ',' '],
+                        [' ',' ',' '],
+                        [' ',' ',' '],
+                    ]);
+                    done();
+                })
         })
         it ("Un jugador quiere marcar una posicion ocupada, tiene un error y sigue su tiempo de mover ", (done)=>
         {
@@ -125,18 +128,19 @@ describe("juego de tateti", async ()=>
             chai.request(server)
             .put("/movimiento")
             .send(movimientos[5])
-            .end((err,res)=>{
-                res.should.have.status(200);            
-                res.should.to.be.json;    
-                res.should.to.be.a('object');                     
-                res.body.should.have.property('turno').eql('Pedro');
-                res.body.should.have.property('estado').eql([
-                    ['x',' ',' '],
-                    [' ',' ',' '],
-                    [' ',' ',' '],
-                ]);
-                done();
-            })
+            .end((err,res)=>
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;    
+                    res.should.to.be.a('object');                     
+                    res.body.should.have.property('turno').eql('Pedro');
+                    res.body.should.have.property('estado').eql([
+                        ['x',' ',' '],
+                        [' ',' ',' '],
+                        [' ',' ',' '],
+                    ]);
+                    done();
+                })
         })
     })
     describe("Distintas opciones de finalización", ()=>
@@ -150,18 +154,18 @@ describe("juego de tateti", async ()=>
             chai.request(server).put("/movimiento").send(movimientos[3]).end();
             chai.request(server).put("/movimiento").send(movimientos[4])
             .end((err,res)=>
-            {
-                res.should.have.status(200);            
-                res.should.to.be.json;                       
-                res.should.to.be.a('object');              
-                res.body.should.have.property('gana').eql('Juan');
-                res.body.should.have.property('estado').eql([
-                    ['x','0',' '],
-                    ['x','0',' '],
-                    ['x',' ',' '],
-                ]);
-                done();
-            })
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;                       
+                    res.should.to.be.a('object');              
+                    res.body.should.have.property('gana').eql('Juan');
+                    res.body.should.have.property('estado').eql([
+                        ['x','0',' '],
+                        ['x','0',' '],
+                        ['x',' ',' '],
+                    ]);
+                    done();
+                })
         })
 
         it("el juego termina cuando hay 3 marcas del mismo jugador en columna 2",(done)=>
@@ -181,18 +185,18 @@ describe("juego de tateti", async ()=>
             chai.request(server).put("/movimiento").send(movimientos_2[3]).end();
             chai.request(server).put("/movimiento").send(movimientos_2[4])
             .end((err,res)=>
-            {
-                res.should.have.status(200);            
-                res.should.to.be.json;                       
-                res.should.to.be.a('object');              
-                res.body.should.have.property('gana').eql('Juan');
-                res.body.should.have.property('estado').eql([
-                    [' ','0','x'],
-                    [' ','0','x'],
-                    [' ',' ','x'],
-                ]);
-                done();
-            })
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;                       
+                    res.should.to.be.a('object');              
+                    res.body.should.have.property('gana').eql('Juan');
+                    res.body.should.have.property('estado').eql([
+                        [' ','0','x'],
+                        [' ','0','x'],
+                        [' ',' ','x'],
+                    ]);
+                    done();
+                })
         })    
         it("el juego termina cuando hay 3  marcas del mismo jugador en fila 1",(done)=>
         {
@@ -211,17 +215,17 @@ describe("juego de tateti", async ()=>
             chai.request(server).put("/movimiento").send(movimientos_3[3]).end();
             chai.request(server).put("/movimiento").send(movimientos_3[4])
             .end((err,res)=>
-            {
-                res.should.have.status(200);            
-                res.should.to.be.json;                       
-                res.should.to.be.a('object');              
-                res.body.should.have.property('gana').eql('Juan');
-                res.body.should.have.property('estado').eql([
-                    ['x','x','x'],
-                    [' ','0',' '],
-                    [' ','0',' '],
-                ]);
-                done();
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;                       
+                    res.should.to.be.a('object');              
+                    res.body.should.have.property('gana').eql('Juan');
+                    res.body.should.have.property('estado').eql([
+                        ['x','x','x'],
+                        [' ','0',' '],
+                        [' ','0',' '],
+                    ]);
+                    done();
                 })
             })
         it("el juego termina cuando hay 3  marcas del mismo jugador en fila 2",(done)=>
@@ -242,18 +246,18 @@ describe("juego de tateti", async ()=>
                 chai.request(server).put("/movimiento").send(movimientos_4[4]).end();
                 chai.request(server).put("/movimiento").send(movimientos_4[5])
                 .end((err,res)=>
-                {
-                    res.should.have.status(200);            
-                    res.should.to.be.json;                       
-                    res.should.to.be.a('object');              
-                    res.body.should.have.property('gana').eql('Pedro');
-                    res.body.should.have.property('estado').eql([
-                        ['x','x',' '],
-                        ['0','0','0'],
-                        [' ',' ','x'],
-                    ]);
-                    done();
-                })
+                    {
+                        res.should.have.status(200);            
+                        res.should.to.be.json;                       
+                        res.should.to.be.a('object');              
+                        res.body.should.have.property('gana').eql('Pedro');
+                        res.body.should.have.property('estado').eql([
+                            ['x','x',' '],
+                            ['0','0','0'],
+                            [' ',' ','x'],
+                        ]);
+                        done();
+                    })
             })
         it("el juego termina cuando hay 3  marcas del mismo jugador en diagonal 1",(done)=>
         {
@@ -272,18 +276,18 @@ describe("juego de tateti", async ()=>
             chai.request(server).put("/movimiento").send(movimientos_4[3]).end();
             chai.request(server).put("/movimiento").send(movimientos_4[4])            
             .end((err,res)=>
-            {
-                res.should.have.status(200);            
-                res.should.to.be.json;                       
-                res.should.to.be.a('object');              
-                res.body.should.have.property('gana').eql('Juan');
-                res.body.should.have.property('estado').eql([
-                    ['x','0',' '],
-                    ['0','x',' '],
-                    [' ',' ','x'],
-                ]);
-                done();
-            })
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;                       
+                    res.should.to.be.a('object');              
+                    res.body.should.have.property('gana').eql('Juan');
+                    res.body.should.have.property('estado').eql([
+                        ['x','0',' '],
+                        ['0','x',' '],
+                        [' ',' ','x'],
+                    ]);
+                    done();
+                })
         
         })
         it("el juego termina cuando hay 3  marcas del mismo jugador en diagonal 2",(done)=>
@@ -302,18 +306,19 @@ describe("juego de tateti", async ()=>
             chai.request(server).put("/movimiento").send(movimientos_4[2]).end();
             chai.request(server).put("/movimiento").send(movimientos_4[3]).end();
             chai.request(server).put("/movimiento").send(movimientos_4[4])            
-            .end((err,res)=>{
-                res.should.have.status(200);            
-                res.should.to.be.json;                       
-                res.should.to.be.a('object');              
-                res.body.should.have.property('gana').eql('Juan');
-                res.body.should.have.property('estado').eql([
-                    [' ','0','x'],
-                    ['0','x',' '],
-                    ['x',' ',' '],
-                ]);
-                done();
-            })        
+            .end((err,res)=>
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;                       
+                    res.should.to.be.a('object');              
+                    res.body.should.have.property('gana').eql('Juan');
+                    res.body.should.have.property('estado').eql([
+                        [' ','0','x'],
+                        ['0','x',' '],
+                        ['x',' ',' '],
+                    ]);
+                    done();
+                })        
         })
         it("Juego termina con empate ",(done)=>
         {
@@ -340,18 +345,18 @@ describe("juego de tateti", async ()=>
             chai.request(server).put("/movimiento").send(movimientos_5[7]).end();
             chai.request(server).put("/movimiento").send(movimientos_5[8])            
             .end((err,res)=>
-            {
-                res.should.have.status(200);            
-                res.should.to.be.json;                       
-                res.should.to.be.a('object');              
-                res.body.should.have.property('empate').eql('empate');
-                res.body.should.have.property('estado').eql([
-                    ['x','0','x'],
-                    ['0','x','0'],
-                    ['x','0','x'],
-                ]);
-                done();
-            })
+                {
+                    res.should.have.status(200);            
+                    res.should.to.be.json;                       
+                    res.should.to.be.a('object');              
+                    res.body.should.have.property('empate').eql('empate');
+                    res.body.should.have.property('estado').eql([
+                        ['x','0','x'],
+                        ['0','x','0'],
+                        ['x','0','x'],
+                    ]);
+                    done();
+                })
         })
     })      
 })
