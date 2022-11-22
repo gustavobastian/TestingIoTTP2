@@ -92,13 +92,13 @@ function checkFila(fil)
   return output=false;
 }
 
-/* GET home page. */
+
 router.get('/', function(req, res, next) 
 {
   res.render('index', { title: 'Express' });
 });
 
-/* Put empezar. */
+
 router.put('/empezar', function(request, response) 
 {
     jugadores=request.body;
@@ -120,7 +120,7 @@ router.put('/empezar', function(request, response)
     .status(200)    
 });
 
-/* Put movimiento. */
+
 router.put('/movimiento', function(request, response) 
 {
   let columna=request.body.columna;
