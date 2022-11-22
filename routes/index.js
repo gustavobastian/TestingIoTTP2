@@ -11,7 +11,7 @@ let movimientos;
 let ganador=false;
 let empate=false;
 
-//busqueda de ganador
+
 function buscarGanador()
 {
 
@@ -33,7 +33,6 @@ function buscarGanador()
       ganador=true;
       return;
     }  
-
 }
 
 function checkDiagonal()
@@ -108,8 +107,6 @@ router.put('/empezar', function(request, response)
     turnoLocal=0
     ganador=false;
     empate=false;
-
-    
     pizarraSt=[
       [' ',' ',' '],
       [' ',' ',' '],
@@ -121,8 +118,7 @@ router.put('/empezar', function(request, response)
     'turno': jugadores[turnoLocal],
     'estado': pizarraSt     
     })
-    .status(200)
-    
+    .status(200)    
 });
 
 /* Put movimiento. */
@@ -130,17 +126,13 @@ router.put('/movimiento', function(request, response)
 {
   let columna=request.body.columna;
   let fila=request.body.fila;
-  let respuesta={}
-  
-  respuesta={}
-  
-  //gestiono turnos  
+  let respuesta={}  
+
   if(jugadores[turnoLocal]==request.body.jugador)
   {
     if (pizarraSt[fila][columna]==" ")
     {
-      movimientos= movimientos-1;
-      
+      movimientos= movimientos-1;      
       if(request.body.jugador==jugadores[0])
       {
         turnoLocal=1;    
@@ -175,7 +167,7 @@ router.put('/movimiento', function(request, response)
         {
           respuesta={'turno' : jugadores[turnoLocal], 'estado': pizarraSt}   
         }      
-  
+
   response.setHeader('Content-Type', 'application/json');      
   response.send(respuesta).status(200);
 });

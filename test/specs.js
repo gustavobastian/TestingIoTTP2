@@ -6,20 +6,6 @@ let server = require("../app");
 chai.use(chaihttp)
 
 
-/*
-*En un juego nuevo el tablero esta vacio y mueve el primer jugador 
-*completar una casilla, el tablero tiene una casilla ocupada y le toca mover al segundo jugador 
-*completar una casilla, el tablero tiene dos casillas ocupada y le toca al primer jugador
-*no debe aceptar movimientos de jugadores que no le corresponden
-*si un jugador quiere marcar una posicion ocupada tiene un error y sigue su tiempo de mover  
-*si 3 filas tienen la marca de un mismo jugador gano 
-*si 3 columnas tienen la marca de un mismo jugador gano
-*si una diagonal tiene la marca de un mismo jugador gano
-*si no hay mas espacios en el tablero es empate
-*/
-
-
-
 describe("juego de tateti", async ()=>
 { 
     let movimientos = [
@@ -74,8 +60,6 @@ describe("juego de tateti", async ()=>
                 done();
             })
         })
-
-        
     })
 
     describe(" movimientos", ()=>
