@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
 const marcas=['0','x'];
 
-var pizarraSt;
-var turnoLocal;
-var jugadores;
+let pizarraSt;
+let turnoLocal;
+let jugadores;
 let marcaJugador;
 let movimientos;
 let ganador=false;
@@ -14,36 +14,29 @@ let empate=false;
 
 function buscarGanador()
 {
-    for (i=0;i<3;i++)
+    for (let i=0;i<3;i++)
     {
-      if (checkColumna(i))
+      if (checkColumna(i) || checkFila(i))
       {
         ganador=true;
         return;
-      }  
-      else if (checkFila(i))
-      {
-        ganador=true;
-        return;
-      }  
+      }
     }
     if (checkDiagonal())
     {
-      ganador=true;
-      return;
+      ganador=true;      
     }  
 }
 
 function checkDiagonal()
-{
-  let output = false;
+{  
   if (pizarraSt[0][0]==pizarraSt[1][1]) 
   {
     if (pizarraSt[2][2]==pizarraSt[1][1]) 
     {
       if (pizarraSt[0][0]!=" ")
       {
-        return   output=true;
+        return true;
       }
     }  
   }  
@@ -53,43 +46,42 @@ function checkDiagonal()
     {
       if (pizarraSt[1][1]!=" ")
       {
-        return   output=true;
+        return true;
       }
     }    
   }    
-  return output;
+  return false;
 }
 
 function checkColumna(col)
-{
-  output=false;
+{  
   if (pizarraSt[0][col]==pizarraSt[1][col]) 
   {
     if (pizarraSt[1][col]==pizarraSt[2][col])
     {
       if(pizarraSt[0][col]!=" ")
       {
-        return output=true;
+        return true;
       }
     }
   }  
-  return output=false;
+  return false;
 }
 
 function checkFila(fil)
 {
-  output=false;
+  
   if (pizarraSt[fil][0]==pizarraSt[fil][1]) 
   {
     if (pizarraSt[fil][1]==pizarraSt[fil][2])
     {
       if(pizarraSt[fil][0]!=" ")
       {
-        return output=true;
+        return true;
       }
     }
   }  
-  return output=false;
+  return false;
 }
 
 

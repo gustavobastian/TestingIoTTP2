@@ -1,34 +1,31 @@
 # Repositorio Trabajo Práctico 2 de la materia Testing de Sistemas IoT
 
-
-En este trabajo práctico se implementa verificación y tésting de código. Es parte de la materia Testing de IoT dictada por Esteban Volentini (https://github.com/evolentini) y Carlos Pantelides (https://github.com/cpantel).
+En este trabajo práctico se implementa verificación y tésting de código. Es parte de la materia Testing de IoT dictada por Esteban Volentini ([https://github.com/evolentini](https://github.com/evolentini)) y Carlos Pantelides ([https://github.com/cpantel](https://github.com/cpantel)).
 
 El trabajo consisten en implementar el juego de tateti en una app de express.
 
+## Herramientas que se utilizan
 
-Herramientas que se utilizan:
+* <strong>CHAI</strong> Libreria para el lenguaje Javascript que incorpora funciones para garantizar que las pruebas lleguen a resultados esperados.
 
-* <strong>CHAI</strong>: Libreria para el lenguaje Javascript que incorpora funciones para garantizar que las pruebas lleguen a resultados esperados.
+        Url:[https://www.chaijs.com/](https://www.chaijs.com/)
 
-        Url: https://www.chaijs.com/
+* <strong>SINON</strong> Libreria Javascript para generar funciones Spy, Stub o Mock. Este tipo de funciones emulan funciones externas inyectadas en archivo que se prueba.
 
-* <strong>SINON</strong>: Libreria Javascript para generar funciones Spy, Stub o Mock. Este tipo de funciones emulan funciones externas inyectadas en archivo que se prueba.
+        Url: [https://sinonjs.org/](https://sinonjs.org/)      
 
-        Url: https://sinonjs.org/      
+* <strong>MOCHA</strong> Framework que automatiza Testing para el lenguaje Javascript
 
-* <strong>MOCHA</strong>: Framework que automatiza Testing para el lenguaje Javascript
-
-        Url: https://mochajs.org/
-
+        Url: [https://mochajs.org/](https://mochajs.org/)
 
 En este trabajo se utiliza express, por lo que se debe instalar:
 
-        >npm install express cookie-parser debug morgan
-        >npm install -g express-generator
+```bash
+>npm install 
+>npm install -g express-generator
+```
 
-
-
-Pruebas a realizar:
+## Pruebas a realizar
 
 1-En un juego nuevo el tablero esta vacio y mueve el primer jugador \
 2-completar una casilla, el tablero tiene una casilla ocupada y le toca al segundo jugador \
